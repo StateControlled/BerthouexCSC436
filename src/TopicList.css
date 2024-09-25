@@ -1,0 +1,20 @@
+.accordion-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #dddddd;
+    font-size: 0.9em;
+    color: #555555;
+}
+
+.accordion-footer .btn-group {
+    margin-left: 10px;
+}
+
+.accordion-footer .btn-group .btn {
+    padding: 0.25rem 0.5 rem;
+    font-size: 0.8rem;
+}
+
+.rounded-pill {
+    margin-left: 15px;
+}

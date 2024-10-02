@@ -1,5 +1,7 @@
 /workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/appsettings.Development.json
 /workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/appsettings.json
+/workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/commentData.json
+/workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/dummyData.json
 /workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/RedditClone
 /workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/RedditClone.deps.json
 /workspaces/BerthouexCSC436/backend/RedditClone/bin/Debug/net8.0/RedditClone.runtimeconfig.json

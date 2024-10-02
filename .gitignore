@@ -1,0 +1,8 @@
+backend/RedditClone/obj/
+backend/RedditClone/bin/
+backend/RedditClone/obj
+backend/RedditClone/bin
+node_modules
+backend/RedditClone/obj/
+
+.fake

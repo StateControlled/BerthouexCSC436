@@ -4,6 +4,8 @@
     border-top: 1px solid #dddddd;
     font-size: 0.9em;
     color: #555555;
+    display: flex;
+    align-items: center;
 }
 
 .accordion-footer .btn-group {
@@ -17,4 +19,15 @@
 
 .rounded-pill {
     margin-left: 15px;
+}
+
+.accordion-footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.reply-form {
+    width: 100%;
+    margin-bottom: 10px;
 }

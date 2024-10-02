@@ -3,13 +3,29 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-function TopicCreator() {
+function TopicCreator({addTopic}) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow  = () => setShow(true);
 
     const ModalHeader = "Create a New Topic";
+
+    function saveTopic(e) {
+        e.preventDefault();
+        console.log(e);
+        console.log(e.target.formTitle.value);
+        console.log(e.target.formContent.value);
+
+        const newTopic = {
+            "id": Date.now(),
+            "title": e.target.formTitle.value,
+            "content": e.target.formContent.value,
+            "rating": 0
+        };
+        addTopic(newTopic);
+        handleClose();
+    }
 
     return (
         <div className="Topic">
@@ -17,30 +33,32 @@ function TopicCreator() {
                 {ModalHeader}
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>{ModalHeader}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form>
-                        <Form.Group className="mb-3" controlId="topicForm.ControlInput1">
+                    <Form onSubmit={saveTopic}>
+                        <Form.Group className="mb-3" controlId="formTitle">
                             <Form.Label>Topic Subject</Form.Label>
-                            <Form.Control type="text" placeholder="Enter a title for your topic" />
+                            <Form.Control type="text" name="formTitle" placeholder="Topic Content" />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="topicForm.ControlTextarea1">
+                        
+                        <Form.Group className="mb-3" controlId="formContent">
                             <Form.Label>Topic Content</Form.Label>
-                            <Form.Control as="textarea" rows={3} />
+                            <Form.Control as="textarea" name="formContent" rows={3} />
                         </Form.Group>
+
+                        <Button variant="primary" type="submit">
+                            Save Changes
+                        </Button>
                     </Form>
                 </Modal.Body>
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
                     </Button>
                 </Modal.Footer>
             </Modal>

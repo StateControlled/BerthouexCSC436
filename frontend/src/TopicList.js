@@ -8,7 +8,7 @@ import TopicCreator from './TopicCreator';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 
-const hostname = 'http://127.0.0.1:3000';
+const hostname = 'http://127.0.0.1:5179';
 
 function TopicList() {
     // State to store comments
@@ -47,14 +47,14 @@ function TopicList() {
     // Function to update the rating of a topic
     const updateTitleRating = (id, delta) => {
         setTopics(topics.map(topic =>
-            topic.id === id ? {...topic, rating: topic.rating + delta} : topic
+            topic.topic_id === id ? {...topic, rating: topic.rating + delta} : topic
         ));
     };
 
     // Function to update the rating of a comment
     const updateCommentRating = (id, delta) => {
         setComments(comments.map(comment =>
-            comment.id === id ? {...comment, rating: comment.rating + delta} : comment
+            comment.comment_id === id ? {...comment, rating: comment.rating + delta} : comment
         ));
     };
 
@@ -64,7 +64,7 @@ function TopicList() {
             const data = await response.json();
             setTopics(data);
         } catch (error) {
-            console.error('Error fetching comments: ', error);
+            console.error('Error fetching comments (WB): ', error);
         }
     };
 
@@ -76,10 +76,10 @@ function TopicList() {
         if (comments.length === 0) {
             fetch(hostname + '/getComments')
                 .then(response => response.json())
-                .then(data=> {
+                .then(data => {
                     setComments(data);
                 });
-        };
+        }
         console.log(comments);
     }, [comments]);
 
@@ -114,7 +114,7 @@ function TopicList() {
                                 {topic.title}
                                 <Badge bg="primary" pill>
                                     {/** Display the number of comments for the topic */}
-                                    {comments.filter(comment => comment.topic_id === topic.topic.id).length}
+                                    {comments.filter(comment => comment.topic_id === topic.topic_id).length}
                                 </Badge>
                             </Accordion.Header>
 
@@ -132,7 +132,7 @@ function TopicList() {
                                     and the rating buttons began working as expected
                                 */}
                                 <TopicThread 
-                                    comments={comments.filter(comment => comment.topic_id === topic.topic.id)}
+                                    comments={comments.filter(comment => comment.topic_id === topic.topic_id)}
                                     updateCommentRating={updateCommentRating}
                                 />
 

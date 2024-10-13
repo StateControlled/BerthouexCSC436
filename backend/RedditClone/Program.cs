@@ -10,10 +10,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configure CORS to allow requests from specific origins
-// Add services: add services to the container, including Swagger (just above line 9) for API documentation and CORS for cross-origin requests
-// CORS configuration: configure CORS to allow requests from http:127.0.0.1 with any header and method
+// Add Services: Add services to the container, including Swagger (just above on line 9) for API documentation and CORS for cross-origin requests.
+// CORS Configuration: Configure CORS to allow requests from http://127.0.0.1 with any header and method.
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(options => 
 {
     options.AddPolicy("AllowAllOrigins",
     builder =>
@@ -35,15 +35,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Enable https redirection
+// Enable HTTPS redirection
 app.UseHttpsRedirection();
 
 // Enable CORS using the defined policy
-// Above we defined a CORS policy name "AllowAllOrigins" that allows requests from http://127.0.0.1
-// We are now using this policy to enable CORS in the application
+// Above we defined a CORS policy named "AllowAllOrigins" that allows requests from http://127.0.0.1
+// We are now using this policy to enable CORS in the application.
 app.UseCors("AllowAllOrigins");
 
-// Read in data files to build up database
+// Define an endpoint to get weather forecast data
 app.MapGet("/Reset", () =>
 {
     using(DbContext reddit = new redditContext())
@@ -55,33 +55,33 @@ app.MapGet("/Reset", () =>
         {
             PropertyNameCaseInsensitive = true
         };
-        using(StreamReader r = new StreamReader("dummyData.json"))
-        {
-            string? json = r.ReadToEnd();
-            List<Topic>? source = JsonSerializer.Deserialize<List<Topic>>(json, options);
+        using (StreamReader r = new StreamReader("dummyData.json"))  
+        {  
+            string? json = r.ReadToEnd();  
+            List<Topic>? source = JsonSerializer.Deserialize<List<Topic>>(json, options); 
             foreach(var item in source)
             {
-                reddit.Add<Topic>(item);
+                reddit.Add<Topic>(item);  
             }
-
-        }
+            
+        }  
         reddit.SaveChanges();
 
-        using(StreamReader r = new StreamReader("commentData.json"))
-        {
-            string? json = r.ReadToEnd();
-            List<Comments>? source = JsonSerializer.Deserialize<List<Comments>>(json, options);
+        using (StreamReader r = new StreamReader("commentData.json"))  
+        {  
+            string? json = r.ReadToEnd();  
+            List<Comments>? source = JsonSerializer.Deserialize<List<Comments>>(json, options); 
             foreach(var item in source)
             {
-                reddit.Add<Comments>(item);
+                reddit.Add<Comments>(item);  
             }
 
-        }
+        }  
         reddit.SaveChanges();
         reddit.Database.ExecuteSqlRaw("PRAGMA wal_checkpoint;");
-
+        
     }
-    
+
 })
 .WithName("Reset Data")
 .WithOpenApi();
@@ -93,26 +93,25 @@ app.MapGet("/getTopics", () =>
     {
         PropertyNameCaseInsensitive = true
     };
-    //
+    
     using(redditContext reddit = new redditContext())
-    {
-        List<Topic>? source = reddit.Topics.OrderBy(t => t.Topic_id).ToList();
+    {  
+        List<Topic>? source = reddit.Topics.OrderBy(t => t.Topic_id).ToList(); 
         return source;
-    }
+    }  
 }).WithOpenApi().WithName("Get Topics");
 
-// Define an endpoint to get topics from a JSON file
-app.MapGet("/getComments", () =>
-{
+// Define an endpoint to get comments from a JSON file
+app.MapGet("/getComments", () => {
     var options = new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true
     };
-    using(redditContext reddit = new redditContext())
-    {
+    using(redditContext reddit = new redditContext())  
+    {   
         List<Comments>? source = reddit.Comments.OrderBy(t => t.Comment_id).ToList();
         return source;
-    }
+    }  
 }).WithOpenApi().WithName("Get Comments");
 
 // Define a simple endpoint to return a "Hello World" message

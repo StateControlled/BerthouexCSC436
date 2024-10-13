@@ -115,7 +115,7 @@ app.MapGet("/getComments", () => {
 }).WithOpenApi().WithName("Get Comments");
 
 // Define a simple endpoint to return a "Hello World" message
-app.MapGet("/hellWorld", () =>
+app.MapGet("/helloWorld", () =>
 {
     return "Hello World from my API";
 }).WithOpenApi().WithName("Hello World");
